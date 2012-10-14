@@ -1,0 +1,121 @@
+
+/* General */
+a {
+    /* Do not underline links */
+    text-decoration: none; 
+    /* Do not change colors */
+    color: inherit;
+}
+
+a:hover {
+    /* decorate when over link */
+    text-decoration: underline;
+}
+
+/* Main layout */
+#site-header {
+    font-size: 2em;
+    text-align: center;
+    padding: 20px;
+}
+
+#menu {
+    vertical-align: top;
+}
+
+#menu ul {
+    width: 10em;
+    border: solid 1px #ffd000;
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+#menu li {
+    font-weight: bold;
+    padding: 5px;
+}
+
+#menu li.active {
+    background-color: #ffd000;
+}
+
+#contents {
+    vertical-align: top;
+    padding-left: 20px;
+    max-width: 1000px;
+}
+
+/* Sources, etc */
+
+ul.source {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+li.source {
+    border-top: #ffd000 solid 3px;
+    margin-top: 20px;
+}
+
+.title {
+    font-size: 1.5em;
+    font-family: serif;
+    color: green;
+    #font-weight: bold;
+}
+
+li.source .title {
+    display: block;
+}
+
+.author {
+    font-style: italic;
+}
+
+li.source .author {
+    display: block;
+}
+
+.source .quotecount {
+    display: float;
+    float: right;
+    font-weight: bold;
+    background-color: yellow; 
+    padding: 5px;
+}
+
+/* external url */
+.url {
+    color: blue;
+    /*target-name: new;*/
+}
+
+ul.quotes {
+    list-style-type: none;
+}
+
+li.quote {
+    margin-top: 1em;
+}
+
+.description {
+    display: block;
+    font-weight: bold;
+    color: green;
+}
+.dates {
+    background-color: #ffd000;
+    /*font-family: courier; */
+    font-size: 0.8em;
+    font-weight: bold;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.tags {
+    font-style: italic;
+    margin-left: 10px;
+}
+.content {
+    display: block;
+    font-size: 0.8em;
+}
