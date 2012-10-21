@@ -17,7 +17,6 @@
 	    <li><a href="tags.html">Tags</a></li>
 	    <li><a href="events.html">Events</a></li>
 	    <li class="active"><a href="sourceadd.html">Add source</a></li>
-	    <li><a href="quoteadd.html">Add quote</a></li>
 	  </ul>
 	</td>
 
@@ -28,13 +27,13 @@
 	    <table class="form">
 	      <tr>
 		<td>
-		  <label for="f_title" class="title">Title</label>
+		  <label for="f_title" class="title">Title
+		    <span class="error">*1</span>
+		  </label>
 		</td>
 		<td>
 		  <input id="f_title" value="Дни поражений и побед"></input>
 		</td>
-		<!-- В случае ошибки заполняется последний столбец -->
-		<td><span class="error">такой источник уже существует</span>
 	      </tr><tr>
 		<td>
 		  <label for="f_author" class="author">Author</label>
@@ -51,6 +50,9 @@
 		</td>
 	      </tr>
 	    </table>
+	    <div class="errors">
+	      <span class="error">*1 такой источник уже существует</span>
+	    </div>
 	    <input class="button" type="submit">
 	    <input class="button" type="button" value="cancel" onclick="location='sources.html'">
 	  </form>

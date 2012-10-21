@@ -52,6 +52,7 @@ a:hover {
     padding: 3px;
     font-weight: bold;
     background-color: yellow;
+    display: inline-block;
 }
 
 .button:hover {
@@ -137,5 +138,10 @@ table.form td {
 }
 
 .error {
+    font-size: 10pt;
     color: red;
+}
+
+.errors {
+    margin: 10px;
 }
