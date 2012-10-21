@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="main.css" rel="stylesheet" type="text/css">
+  </head>
+  
+  <!-- общее для всех страниц -->
+  <body>
+    <div id="site-header">
+      Quote-mining & history-logging
+    </div>
+    <table>
+      <tr>
+	<td id="menu">
+	  <ul>
+	    <li><a href="sources.html">Sources</a></li>
+	    <li><a href="tags.html">Tags</a></li>
+	    <li><a href="events.html">Events</a></li>
+	    <li class="active"><a href="sourceadd.html">Add source</a></li>
+	  </ul>
+	</td>
+
+	<td id="contents">
+	  <!-- только для данной страницы -->
+	  <h2>Add new source</h2>
+	  <form action="sourceadd.html" method="POST">
+	    <table class="form">
+	      <tr>
+		<td>
+		  <label for="f_title" class="title">Title
+		    <span class="error">*1</span>
+		  </label>
+		</td>
+		<td>
+		  <input id="f_title" value="Дни поражений и побед"></input>
+		</td>
+	      </tr><tr>
+		<td>
+		  <label for="f_author" class="author">Author</label>
+		</td>
+		<td>
+		  <input id="f_author"></input>
+		</td>
+	      </tr><tr>
+		<td>
+		  <label for="f_url" class="url">URL</label>
+		</td>
+		<td>
+		  <input id="f_url"></input>
+		</td>
+	      </tr>
+	    </table>
+	    <div class="errors">
+	      <span class="error">*1 такой источник уже существует</span>
+	    </div>
+	    <input class="button" type="submit">
+	    <input class="button" type="button" value="cancel" onclick="location='sources.html'">
+	  </form>
+	</td>
+      </tr>
+    </table>
+  </body>
+</html>
+	

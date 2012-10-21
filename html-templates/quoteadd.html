@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="main.css" rel="stylesheet" type="text/css">
+  </head>
+  
+  <!-- общее для всех страниц -->
+  <body>
+    <div id="site-header">
+      Quote-mining & history-logging
+    </div>
+    <table>
+      <tr>
+	<td id="menu">
+	  <ul>
+	    <li><a href="sources.html">Sources</a></li>
+	    <li><a href="tags.html">Tags</a></li>
+	    <li><a href="events.html">Events</a></li>
+	    <li><a href="sourceadd.html">Add source</a></li>
+	  </ul>
+	</td>
+
+	<td id="contents">
+	  <!-- только для данной страницы -->
+	  <h2>Add new quote</h2>
+	  <div class="title">
+	    Дни поражений и побед
+	  </div>
+	  <div class="author">
+	    Егор Гайдар
+	  </div>
+	  <div class="url">
+	    <a  target="_blank" href="http://lib.rus.ec/b/195568">http://lib.rus.ec/b/195568</a>
+	  </div>
+	  <!-- форма -->
+	  <form action="quoteadd.html" method="POST">
+	    <table class="form">
+	      <tr>
+	      <!-- description -->
+		<td>
+		  <label for="f_description">Description
+		    <span class="error">*1</span>
+		  </label>
+		</td>
+		<td>
+		  <input id="f_description" value="Проб"></input>
+		</td>
+	      </tr><tr>
+	      <!-- content -->
+		<td>
+		  <label for="f_content">Content
+		    <span class="error">*2</span>
+		  </label>
+		</td>
+		<td>
+		  <textarea id="f_content" cols="60" rows="10"></textarea>
+		</td>
+	      </tr><tr>
+	      <!-- start date -->
+		<td>
+		  <label for="f_startdate">Start date</label>
+		</td>
+		<td>
+		  <input id="f_startdate" value="1992-04-03 12:32"></input>
+		</td>
+	      </tr><tr>
+	      <!-- end date -->
+		<td>
+		  <label for="f_enddate">End date
+		    <span class="error">*3</span>
+		  </label>
+		</td>
+		<td>
+		  <input id="f_enddate" value="5 апреля 1992"></input>
+		</td>
+	      </tr><tr>
+	      <!-- tags -->		
+		<td>
+		  <label for="f_tags">Tags</label>
+		</td>
+		<td>
+		  <input id="f_tags" value="цены, либерализация, мыло" style="width: 30em"></input>
+		</td>
+	      </tr>
+	    </table>
+	    <div class="errors">
+	      <span class="error">*1 обязательно для заполнения</span><br>
+	      <span class="error">*2 обязательно для заполнения</span><br>
+	      <span class="error">*3 ошибка формата</span>
+	    </div>
+	    <input class="button" type="submit">
+	    <input class="button" type="button" value="cancel" onclick="location='source.html'">
+	  </form>
+	</td>
+      </tr>
+    </table>
+  </body>
+</html>
