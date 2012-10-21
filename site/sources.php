@@ -5,34 +5,10 @@ $db = mysql_connect('localhost','root','ares') or die("Connection failed!!!");
 mysql_select_db('historylog') or die ("Databse selection failed!!!");
 
 // making query	from tables "sources" and "quotations"
-$query = mysql_query('SELECT * FROM sources') or die("Database query failed!!!");
-$query2 = mysql_query('SELECT quotations.source_id, quotations.start_time, quotations.end_time 
-	FROM quotations') or die("Database query failed!!!");
-
-$counts = array(); // array of integers, how many quotes per source
-$start_dates = array(); // date&time array, earliest quote of each source
-$end_dates = array(); // date&time array, latest quote of each source
-
-while($one_count = mysql_fetch_array($query2)){
-
-	// calculating how many quotes per source, if 0 then array cell is NULL
-	if (isset($counts[$one_count['source_id']]))
-		$counts[$one_count['source_id']]++;
-	else 
-		$counts[$one_count['source_id']] = 1;
-	
-	// calculating earliest quote of each source, if no dates then array cell is NULL
-	if (isset($one_count['start_time']) && 
-		( !isset($start_dates[$one_count['source_id']]) ||
-		$one_count['start_time'] < $start_dates[$one_count['source_id']] ) )
-			$start_dates[$one_count['source_id']] = $one_count['start_time'];
-	
-	// calculating latest quote of each source, if no dates then array cell is NULL
-	if (isset($one_count['end_time']) && 
-		( !isset($end_dates[$one_count['source_id']]) ||
-		$one_count['end_time'] > $end_dates[$one_count['source_id']] ) )
-			$end_dates[$one_count['source_id']] = $one_count['end_time'];
-}
+$query = mysql_query('SELECT sources.id, sources.title, sources.author, quotations.source_id, 
+	MIN(quotations.start_time) AS min_time, MAX(quotations.end_time) AS max_time, COUNT(quotations.source_id) AS c
+	FROM sources LEFT JOIN quotations ON sources.id=quotations.source_id GROUP BY sources.id') 
+	or die("Database query failed!!!".mysql_error());
 
 // queries are over, disconnecting from mysql
 mysql_close($db);
@@ -68,11 +44,10 @@ mysql_close($db);
 		while($arr = mysql_fetch_array($query)){
 		?>
 	    <li class="source">
-	      <span class="quotecount"><?=isset($counts[$arr['id']])? $counts[$arr['id']] : 0 ?></span>
+	      <span class="quotecount"><?=$arr['c']?></span>
 	      <span class="title"><a href="source.php?id=<?=$arr['id']?>"><?=$arr['title']?></a></span>
 	      <span class="author"><?=$arr['author']?></span>
-	      <span class="dates"><?=isset($start_dates[$arr['id']])? $start_dates[$arr['id']] : "" ?> - 
-			<?=isset($end_dates[$arr['id']])? $end_dates[$arr['id']] : "" ?></span>
+	      <span class="dates"><?=$arr['min_time']?> - <?=$arr['max_time']?></span>
 	    </li>
 		<?php } ?>
 	  </ul>
