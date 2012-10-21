@@ -47,6 +47,17 @@ a:hover {
 
 /* Sources, etc */
 
+.button {
+    border: ridge 3px #ffd000;
+    padding: 3px;
+    font-weight: bold;
+    background-color: yellow;
+}
+
+.button:hover {
+    background-color: #ffd000;
+}
+
 ul.source {
     list-style-type: none;
     padding-left: 0px;
@@ -118,4 +129,13 @@ li.quote {
 .content {
     display: block;
     font-size: 0.8em;
+}
+
+/* forms */
+table.form td {
+    padding: 5px;
+}
+
+.error {
+    color: red;
 }
