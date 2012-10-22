@@ -20,6 +20,8 @@ while($tags = mysql_fetch_array($query3)){
 	else
 		$queried_tags[$tags['id']] = $tags['name'];
 	}
+	
+mysql_close($db);
 
 ?>
 
@@ -38,10 +40,10 @@ while($tags = mysql_fetch_array($query3)){
       <tr>
 	<td id="menu">
 	  <ul>
-	    <li><a href="sources.html">Sources</a></li>
+	    <li><a href="sources.php">Sources</a></li>
 	    <li><a href="tags.html">Tags</a></li>
 	    <li><a href="events.html">Events</a></li>
-	    <li><a href="sourceadd.html">Add source</a></li>
+	    <li><a href="sourceadd.php">Add source</a></li>
 	    <li><a href="quoteadd.html">Add quote</a></li>
 	  </ul>
 	</td>
@@ -49,7 +51,7 @@ while($tags = mysql_fetch_array($query3)){
 	<td id="contents">
 	  <!-- только для данной страницы -->
 	  <h2>Source</h2>
-	  
+
 	  <?php 
 		$source = mysql_fetch_array($query1);
 	  ?>
@@ -92,8 +94,6 @@ while($tags = mysql_fetch_array($query3)){
 
       </tr>
     </table>
-	
-	<?php mysql_close($db); ?>
 
   </body>
 </html>

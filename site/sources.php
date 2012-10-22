@@ -12,7 +12,6 @@ $query = mysql_query('SELECT sources.id, sources.title, sources.author, quotatio
 
 // queries are over, disconnecting from mysql
 mysql_close($db);
-
 ?>
 
 <html>
@@ -32,13 +31,14 @@ mysql_close($db);
 	    <li class="active"><a href="sources.html">Sources</a></li>
 	    <li><a href="tags.html">Tags</a></li>
 	    <li><a href="events.html">Events</a></li>
-	    <li><a href="sourceadd.html">Add source</a></li>
+	    <li><a href="sourceadd.php">Add source</a></li>
 	    <li><a href="quoteadd.html">Add quote</a></li>
 	  </ul>
 	</td>
 	
 	<td id="contents">
 	  <h1>Source list</h1>
+	  <span class="button"><a href="sourceadd.php">Add new source</a></span>
 	  <ul class="source">
 		<?php
 		while($arr = mysql_fetch_array($query)){
