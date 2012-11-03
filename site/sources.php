@@ -3,6 +3,7 @@
 // connecting to mysql and selecting database "historylog"
 $db = mysql_connect('localhost','root','ares') or die("Connection failed!!!");
 mysql_select_db('historylog') or die ("Databse selection failed!!!");
+mysql_set_charset('utf8',$db); 
 
 // making query	from tables "sources" and "quotations"
 $query = mysql_query('SELECT sources.id, sources.title, sources.author, quotations.source_id, 
