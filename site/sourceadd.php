@@ -29,6 +29,7 @@ if ($already_input==true && $error==""){
 	if(!($db = mysql_connect('localhost','root','ares')) || !(mysql_select_db('historylog')))
 		$error = mysql_error();
 	else{
+		mysql_set_charset('utf8',$db);
 		$query = mysql_query('SELECT * FROM sources WHERE title=\''.$f_title.'\'');
 		if($x = mysql_fetch_array($query))
 			$error = "Такой источник уже существует!";

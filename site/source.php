@@ -5,6 +5,7 @@ $source_id = $_GET['id'];
 $db = mysql_connect('localhost','root','ares') or die("Connection failed!!!");
 
 mysql_select_db('historylog') or die ("Databse selection failed!!!");
+mysql_set_charset('utf8',$db); 
 
 $query1 = mysql_query('SELECT * FROM sources WHERE id='.$source_id) or die("Database query failed!!!");
 $query2 = mysql_query('SELECT * FROM quotations WHERE source_id='.$source_id) or die("Database query failed!!!");
