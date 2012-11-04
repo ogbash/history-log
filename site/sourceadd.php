@@ -26,21 +26,22 @@ else
 	$f_url = "";
 	
 if ($already_input==true && $error==""){
-	if(!($db = mysql_connect('localhost','root','ares')) || !(mysql_select_db('historylog')))
-		$error = mysql_error();
+	$db = mysql_connect('localhost','root','ares') or die (mysql_error());
+	mysql_select_db('historylog') or die (mysql_error());
+
+	mysql_set_charset('utf8',$db);
+	$query = mysql_query('SELECT * FROM sources WHERE title=\''.mysql_real_escape_string($f_title).'\'') 
+		or die(mysql_error());
+	if($x = mysql_fetch_array($query))
+		$error = "Такой источник уже существует!";
 	else{
-		mysql_set_charset('utf8',$db);
-		$query = mysql_query('SELECT * FROM sources WHERE title=\''.$f_title.'\'');
-		if($x = mysql_fetch_array($query))
-			$error = "Такой источник уже существует!";
-		else{
-			mysql_query('INSERT INTO sources VALUES(NULL,\''.$f_title.'\',\''.$f_author.'\',\''.$f_url.'\')');
-			$f_title = ""; $f_author = ""; $f_url = "";
-			$ok_message = "Источник добавлен";
-		}
-		
-		mysql_close($db);
-	}
+		mysql_query('INSERT INTO sources VALUES(NULL,\''.mysql_real_escape_string($f_title).'\',\''.
+			mysql_real_escape_string($f_author).'\',\''.mysql_real_escape_string($f_url).'\')')
+			or die(mysql_error());
+		$f_title = ""; $f_author = ""; $f_url = "";
+		$ok_message = "Источник добавлен";
+	}		
+	mysql_close($db);
 }
 
 if ($error!="")

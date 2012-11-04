@@ -2,17 +2,17 @@
 
 $source_id = $_GET['id'];
 
-$db = mysql_connect('localhost','root','ares') or die("Connection failed!!!");
+$db = mysql_connect('localhost','root','ares') or die (mysql_error());
 
-mysql_select_db('historylog') or die ("Databse selection failed!!!");
+mysql_select_db('historylog') or die (mysql_error());
 mysql_set_charset('utf8',$db); 
 
-$query1 = mysql_query('SELECT * FROM sources WHERE id='.$source_id) or die("Database query failed!!!");
-$query2 = mysql_query('SELECT * FROM quotations WHERE source_id='.$source_id) or die("Database query failed!!!");
+$query1 = mysql_query('SELECT * FROM sources WHERE id='.mysql_real_escape_string($source_id)) or die(mysql_error());
+$query2 = mysql_query('SELECT * FROM quotations WHERE source_id='.mysql_real_escape_string($source_id)) or die(mysql_error());
 $query3 = mysql_query('SELECT tags.name, quotations.id  
 					FROM tags JOIN quotation_tags AS qts JOIN quotations
 					WHERE tags.id=qts.tag_id AND quotations.id=qts.quotation_id 
-						AND quotations.source_id='.$source_id) or die("Database query failed!!!");
+						AND quotations.source_id='.mysql_real_escape_string($source_id)) or die(mysql_error());
 						
 $queried_tags = array();
 while($tags = mysql_fetch_array($query3)){
@@ -45,7 +45,7 @@ mysql_close($db);
 	    <li><a href="tags.html">Tags</a></li>
 	    <li><a href="events.html">Events</a></li>
 	    <li><a href="sourceadd.php">Add source</a></li>
-	    <li><a href="quoteadd.html">Add quote</a></li>
+	    <li><a href="quoteadd.php">Add quote</a></li>
 	  </ul>
 	</td>
 	
@@ -66,7 +66,9 @@ mysql_close($db);
 	  <div class="url">
 	    <a  target="_blank" href=<?=$source['url']?>><?=$source['url']?></a>
 	  </div>
-
+	  
+	  <span class="button"><a href="quoteadd.php?id=<?=$source_id?>">Add new quote</a></span>
+		
 	  <div>
 	    <ul class="quotes">
 		

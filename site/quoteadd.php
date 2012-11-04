@@ -70,10 +70,10 @@ else
 	
 
 	
-$db = mysql_connect('localhost','root','ares'); 
-mysql_select_db('historylog');
+$db = mysql_connect('localhost','root','ares') or die (mysql_error()); 
+mysql_select_db('historylog') or die (mysql_error());
 
-$query = mysql_query('SELECT * FROM sources WHERE id='.$source_id) or die(mysql_error());
+$query = mysql_query('SELECT * FROM sources WHERE id='.mysql_real_escape_string($source_id)) or die(mysql_error());
 
 if ( $is_description_input && $is_content_input && sizeof($errors)==0 ){
 	mysql_query("INSERT INTO quotations VALUES(NULL,".$source_id.",'".$f_content."','".$f_description."','".
@@ -85,7 +85,8 @@ if ( $is_description_input && $is_content_input && sizeof($errors)==0 ){
 		$f_tags_array[$i] = "\"".$f_tags_array[$i]."\"";
 	$f_tags_quoted = implode(',' , $f_tags_array);
 	
-	$query2 = mysql_query("SELECT * FROM tags WHERE name IN (".$f_tags_quoted.")") or die(mysql_error());
+	$query2 = mysql_query("SELECT * FROM tags WHERE name IN (".mysql_real_escape_string($f_tags_quoted).")") 
+		or die(mysql_error());
 
 	$existing_tags = array();
 	while ($one_tag = mysql_fetch_array($query2))
@@ -95,7 +96,7 @@ if ( $is_description_input && $is_content_input && sizeof($errors)==0 ){
 		if (!in_array($f_tags_array[$i], $existing_tags))
 			mysql_query("INSERT INTO tags VALUES(NULL,".$f_tags_array[$i].")") or die(mysql_error());
 			
-	$query2 = mysql_query("SELECT * FROM tags WHERE name IN (".$f_tags_quoted.")") or die(mysql_error());
+	$query2 = mysql_query("SELECT * FROM tags WHERE name IN (".mysql_real_escape_string($f_tags_quoted).")") or die(mysql_error());
 	
 	while ($one_tag = mysql_fetch_array($query2))
 		mysql_query("INSERT INTO quotation_tags VALUES(".$last_quote_id.",".$one_tag['id'].")") or die(mysql_error());
@@ -202,7 +203,7 @@ mysql_close($db);
 			<?php }} ?>
 	    </div>
 	    <input class="button" type="submit">
-	    <input class="button" type="button" value="cancel" onclick="location='source.html'">
+	    <input class="button" type="button" value="cancel" onclick="location='source.php?id=<?=$source_id?>'">
 	  </form>
 	</td>
       </tr>

@@ -1,8 +1,8 @@
 <?php
 
 // connecting to mysql and selecting database "historylog"
-$db = mysql_connect('localhost','root','ares') or die("Connection failed!!!");
-mysql_select_db('historylog') or die ("Databse selection failed!!!");
+$db = mysql_connect('localhost','root','ares') or die(mysql_error());
+mysql_select_db('historylog') or die (mysql_error());
 mysql_set_charset('utf8',$db); 
 
 // making query	from tables "sources" and "quotations"
@@ -33,7 +33,7 @@ mysql_close($db);
 	    <li><a href="tags.html">Tags</a></li>
 	    <li><a href="events.html">Events</a></li>
 	    <li><a href="sourceadd.php">Add source</a></li>
-	    <li><a href="quoteadd.html">Add quote</a></li>
+	    <li><a href="quoteadd.php">Add quote</a></li>
 	  </ul>
 	</td>
 	
