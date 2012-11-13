@@ -28,7 +28,7 @@ else
 if ($already_input==true && $error==""){
 	require_once('database_connect.php');
 
-	//mysql_set_charset('utf8',$db);
+	mysql_set_charset('utf8',$db);
 	$query = mysql_query('SELECT * FROM sources WHERE title=\''.mysql_real_escape_string($f_title).'\'') 
 		or die(mysql_error());
 	if($x = mysql_fetch_array($query))

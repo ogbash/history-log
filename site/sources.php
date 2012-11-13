@@ -2,11 +2,9 @@
 
 // connecting to mysql and selecting database "historylog"
 require_once('database_connect.php');
-<<<<<<< HEAD
+
 mysql_set_charset('utf8',$db); 
-=======
-//mysql_set_charset('utf8',$db); 
->>>>>>> origin/HEAD
+
 
 // making query	from tables "sources" and "quotations"
 $query = mysql_query('SELECT sources.id, sources.title, sources.author, quotations.source_id, 
