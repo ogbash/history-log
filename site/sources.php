@@ -1,8 +1,7 @@
 <?php
 
 // connecting to mysql and selecting database "historylog"
-$db = mysql_connect('localhost','root','ares') or die(mysql_error());
-mysql_select_db('historylog') or die (mysql_error());
+require_once('database_connect.php');
 mysql_set_charset('utf8',$db); 
 
 // making query	from tables "sources" and "quotations"
