@@ -118,6 +118,11 @@ if ( $is_description_input && $is_content_input && $errors_exist == false ){
 	while ($one_tag = mysql_fetch_array($query2))
 		mysql_query("INSERT INTO quotation_tags VALUES(".mysql_real_escape_string($last_quote_id).",".
 		mysql_real_escape_string($one_tag['id']).")") or die(mysql_error());
+		
+	header( 'HTTP/1.1 303 See Other' );
+	header( 'Location: source.php?id='.$source_id);
+	mysql_close($db);
+	exit;
 }
 
 mysql_close($db);
