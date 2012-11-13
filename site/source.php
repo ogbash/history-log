@@ -2,10 +2,9 @@
 
 $source_id = $_GET['id'];
 
-$db = mysql_connect('localhost','root','ares') or die (mysql_error());
+require_once('database_connect.php');
 
-mysql_select_db('historylog') or die (mysql_error());
-mysql_set_charset('utf8',$db); 
+//mysql_set_charset('utf8',$db); 
 
 $query1 = mysql_query('SELECT * FROM sources WHERE id='.mysql_real_escape_string($source_id)) or die(mysql_error());
 $query2 = mysql_query('SELECT * FROM quotations WHERE source_id='.mysql_real_escape_string($source_id)) or die(mysql_error());

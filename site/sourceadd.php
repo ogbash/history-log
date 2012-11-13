@@ -26,10 +26,9 @@ else
 	$f_url = "";
 	
 if ($already_input==true && $error==""){
-	$db = mysql_connect('localhost','root','ares') or die (mysql_error());
-	mysql_select_db('historylog') or die (mysql_error());
+	require_once('database_connect.php');
 
-	mysql_set_charset('utf8',$db);
+	//mysql_set_charset('utf8',$db);
 	$query = mysql_query('SELECT * FROM sources WHERE title=\''.mysql_real_escape_string($f_title).'\'') 
 		or die(mysql_error());
 	if($x = mysql_fetch_array($query))

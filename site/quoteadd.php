@@ -2,6 +2,7 @@
 
 $is_description_input = false;
 $is_content_input = false;
+$errors_exist = false;
 $errors = array();
 	$errors['description_error'] = "";
 	$errors['content_error'] = "";
@@ -20,6 +21,7 @@ $source_id = $_GET['id'];
 if (isset($_POST['f_description'])){
 	$is_description_input = true;
 	if ($_POST['f_description'] == ""){
+		$errors_exist = true;
 		$errors['description_error'] = "обязательно для заполнения";
 		$error_tags['description_error'] = "*".$error_no;
 		$error_no++;
@@ -32,6 +34,7 @@ else
 if (isset($_POST['f_content'])){
 	$is_content_input = true;
 	if ($_POST['f_content'] == ""){
+		$errors_exist = true;
 		$errors['content_error'] = "обязательно для заполнения";
 		$error_tags['content_error'] = "*".$error_no;
 		$error_no++;
@@ -42,7 +45,8 @@ else
 	$f_content = "";
 	
 if (isset($_POST['f_startdate'])){
-	if (!strtotime($_POST['f_startdate'])){
+	if ($_POST['f_startdate']!="" && !strtotime($_POST['f_startdate'])){
+		$errors_exist = true;
 		$errors['startdate_error'] = "ошибка формата";
 		$error_tags['startdate_error'] = "*".$error_no;
 		$error_no++;
@@ -52,8 +56,14 @@ if (isset($_POST['f_startdate'])){
 else
 	$f_startdate = "";
 	
+if($f_startdate == "")
+	$f_startdate_sql = "NULL";
+else
+	$f_startdate_sql = "'".$f_startdate."'";
+	
 if (isset($_POST['f_enddate'])){
-	if (!strtotime($_POST['f_enddate'])){
+	if ($_POST['f_enddate']!="" && !strtotime($_POST['f_enddate'])){
+		$errors_exist = true;
 		$errors['enddate_error'] = "ошибка формата";
 		$error_tags['enddate_error'] = "*".$error_no;
 		$error_no++;
@@ -62,44 +72,51 @@ if (isset($_POST['f_enddate'])){
 }
 else
 	$f_enddate = "";
+
+if($f_enddate == "")
+	$f_enddate_sql = "NULL";
+else
+	$f_enddate_sql = "'".$f_enddate."'";
 	
 if (isset($_POST['f_tags']))
 	$f_tags = $_POST['f_tags'];
 else
 	$f_tags = "";
 	
-
-	
-$db = mysql_connect('localhost','root','ares') or die (mysql_error()); 
-mysql_select_db('historylog') or die (mysql_error());
+require_once('database_connect.php');
 
 $query = mysql_query('SELECT * FROM sources WHERE id='.mysql_real_escape_string($source_id)) or die(mysql_error());
 
-if ( $is_description_input && $is_content_input && sizeof($errors)==0 ){
-	mysql_query("INSERT INTO quotations VALUES(NULL,".$source_id.",'".$f_content."','".$f_description."','".
-		$f_startdate."','".$f_enddate."')") or die(mysql_error());
+if ( $is_description_input && $is_content_input && $errors_exist == false ){
+	mysql_query("INSERT INTO quotations VALUES(NULL,".mysql_real_escape_string($source_id).",'".
+		mysql_real_escape_string($f_content)."','".mysql_real_escape_string($f_description)."',".
+		mysql_real_escape_string($f_startdate_sql).",".mysql_real_escape_string($f_enddate_sql).")") 
+		or die(mysql_error());
 	$last_quote_id = mysql_insert_id();
 	
 	$f_tags_array = array_map('trim', explode(',' , $f_tags));
 	for ($i=0; $i<sizeof($f_tags_array); $i++)
-		$f_tags_array[$i] = "\"".$f_tags_array[$i]."\"";
+		$f_tags_array[$i] = "'".mysql_real_escape_string($f_tags_array[$i])."'";
 	$f_tags_quoted = implode(',' , $f_tags_array);
 	
-	$query2 = mysql_query("SELECT * FROM tags WHERE name IN (".mysql_real_escape_string($f_tags_quoted).")") 
+	$query2 = mysql_query("SELECT * FROM tags WHERE name IN (".$f_tags_quoted.")") 
 		or die(mysql_error());
 
 	$existing_tags = array();
 	while ($one_tag = mysql_fetch_array($query2))
-		$existing_tags[] = "\"".$one_tag['name']."\"";
+		$existing_tags[] = "'".$one_tag['name']."'";
 
 	for ($i=0; $i<sizeof($f_tags_array); $i++)
 		if (!in_array($f_tags_array[$i], $existing_tags))
-			mysql_query("INSERT INTO tags VALUES(NULL,".$f_tags_array[$i].")") or die(mysql_error());
+			mysql_query("INSERT INTO tags VALUES(NULL,".$f_tags_array[$i].")") 
+				or die(mysql_error());
 			
-	$query2 = mysql_query("SELECT * FROM tags WHERE name IN (".mysql_real_escape_string($f_tags_quoted).")") or die(mysql_error());
+	$query2 = mysql_query("SELECT * FROM tags WHERE name IN (".$f_tags_quoted.")") 
+		or die(mysql_error());
 	
 	while ($one_tag = mysql_fetch_array($query2))
-		mysql_query("INSERT INTO quotation_tags VALUES(".$last_quote_id.",".$one_tag['id'].")") or die(mysql_error());
+		mysql_query("INSERT INTO quotation_tags VALUES(".mysql_real_escape_string($last_quote_id).",".
+		mysql_real_escape_string($one_tag['id']).")") or die(mysql_error());
 }
 
 mysql_close($db);
@@ -164,7 +181,7 @@ mysql_close($db);
 		  </label>
 		</td>
 		<td>
-		  <textarea name="f_content" cols="60" rows="10" value="<?=$f_content?>"></textarea>
+		  <textarea name="f_content" cols="60" rows="10"><?=$f_content?></textarea>
 		</td>
 	      </tr><tr>
 	      <!-- start date -->
