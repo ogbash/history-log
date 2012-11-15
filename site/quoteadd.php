@@ -17,7 +17,11 @@ $error_no = 1;
 $f_tags_array = array();
 
 $source_id = $_GET['id'];
-	
+
+require_once('database_connect.php');
+
+mysql_set_charset('utf8',$db);
+
 if (isset($_POST['f_description'])){
 	$is_description_input = true;
 	if ($_POST['f_description'] == ""){
@@ -59,7 +63,7 @@ else
 if($f_startdate == "")
 	$f_startdate_sql = "NULL";
 else
-	$f_startdate_sql = "'".$f_startdate."'";
+	$f_startdate_sql = "'".mysql_real_escape_string($f_startdate)."'";
 	
 if (isset($_POST['f_enddate'])){
 	if ($_POST['f_enddate']!="" && !strtotime($_POST['f_enddate'])){
@@ -76,24 +80,19 @@ else
 if($f_enddate == "")
 	$f_enddate_sql = "NULL";
 else
-	$f_enddate_sql = "'".$f_enddate."'";
+	$f_enddate_sql = "'".mysql_real_escape_string($f_enddate)."'";
 	
 if (isset($_POST['f_tags']))
 	$f_tags = $_POST['f_tags'];
 else
 	$f_tags = "";
-	
-require_once('database_connect.php');
-
-mysql_set_charset('utf8',$db);
 
 $query = mysql_query('SELECT * FROM sources WHERE id='.mysql_real_escape_string($source_id)) or die(mysql_error());
 
 if ( $is_description_input && $is_content_input && $errors_exist == false ){
 	mysql_query("INSERT INTO quotations VALUES(NULL,".mysql_real_escape_string($source_id).",'".
 		mysql_real_escape_string($f_content)."','".mysql_real_escape_string($f_description)."',".
-		mysql_real_escape_string($f_startdate_sql).",".mysql_real_escape_string($f_enddate_sql).")") 
-		or die(mysql_error());
+		$f_startdate_sql.",".$f_enddate_sql.")") or die(mysql_error());
 	$last_quote_id = mysql_insert_id();
 	
 	$f_tags_array = array_map('trim', explode(',' , $f_tags));
@@ -179,7 +178,7 @@ mysql_close($db);
 		  </label>
 		</td>
 		<td>
-		  <input name="f_description" value="<?=$f_description?>"></input>
+		  <input name="f_description" autocomplete=off value="<?=$f_description?>"></input>
 		</td>
 	      </tr><tr>
 	      <!-- content -->
@@ -199,7 +198,7 @@ mysql_close($db);
 		  </label>
 		</td>
 		<td>
-		  <input name="f_startdate" value="<?=$f_startdate?>"></input>
+		  <input name="f_startdate" autocomplete=off value="<?=$f_startdate?>"></input>
 		</td>
 	      </tr><tr>
 	      <!-- end date -->
@@ -209,7 +208,7 @@ mysql_close($db);
 		  </label>
 		</td>
 		<td>
-		  <input name="f_enddate" value="<?=$f_enddate?>"></input>
+		  <input name="f_enddate" autocomplete=off value="<?=$f_enddate?>"></input>
 		</td>
 	      </tr><tr>
 	      <!-- tags -->		
@@ -217,7 +216,7 @@ mysql_close($db);
 		  <label for="f_tags">Tags</label>
 		</td>
 		<td>
-		  <input name="f_tags" value="<?=$f_tags?>" style="width: 30em"></input>
+		  <input name="f_tags" autocomplete=off value="<?=$f_tags?>" style="width: 30em"></input>
 		</td>
 	      </tr>
 	    </table>
