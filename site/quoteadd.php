@@ -16,7 +16,7 @@ $error_tags = array();
 $error_no = 1;
 $f_tags_array = array();
 
-$source_id = $_GET['id'];
+$source_id = (int) $_GET['id'];
 
 require_once('database_connect.php');
 
@@ -159,13 +159,13 @@ mysql_close($db);
 	  <?php $source = mysql_fetch_array($query) ?>
 	  
 	  <div class="title">
-	    <?=$source['title']?>
+	    <?=htmlspecialchars($source['title'])?>
 	  </div>
 	  <div class="author">
-	    <?=$source['author']?>
+	    <?=htmlspecialchars($source['author'])?>
 	  </div>
 	  <div class="url">
-	    <a  target="_blank" href="<?=$source['url']?>"><?=$source['url']?></a>
+	    <a  target="_blank" href="<?=htmlspecialchars($source['url'])?>"><?=htmlspecialchars($source['url'])?></a>
 	  </div>
 	  <!-- форма -->
 	  <form action="quoteadd.php?id=<?=$source_id?>" method="POST">
@@ -178,7 +178,7 @@ mysql_close($db);
 		  </label>
 		</td>
 		<td>
-		  <input name="f_description" autocomplete=off value="<?=$f_description?>"></input>
+		  <input name="f_description" autocomplete=off value="<?=htmlspecialchars($f_description)?>"></input>
 		</td>
 	      </tr><tr>
 	      <!-- content -->
@@ -188,7 +188,7 @@ mysql_close($db);
 		  </label>
 		</td>
 		<td>
-		  <textarea name="f_content" cols="60" rows="10"><?=$f_content?></textarea>
+		  <textarea name="f_content" cols="60" rows="10"><?=htmlspecialchars($f_content)?></textarea>
 		</td>
 	      </tr><tr>
 	      <!-- start date -->
@@ -198,7 +198,7 @@ mysql_close($db);
 		  </label>
 		</td>
 		<td>
-		  <input name="f_startdate" autocomplete=off value="<?=$f_startdate?>"></input>
+		  <input name="f_startdate" autocomplete=off value="<?=htmlspecialchars($f_startdate)?>"></input>
 		</td>
 	      </tr><tr>
 	      <!-- end date -->
@@ -208,7 +208,7 @@ mysql_close($db);
 		  </label>
 		</td>
 		<td>
-		  <input name="f_enddate" autocomplete=off value="<?=$f_enddate?>"></input>
+		  <input name="f_enddate" autocomplete=off value="<?=htmlspecialchars($f_enddate)?>"></input>
 		</td>
 	      </tr><tr>
 	      <!-- tags -->		
@@ -216,7 +216,7 @@ mysql_close($db);
 		  <label for="f_tags">Tags</label>
 		</td>
 		<td>
-		  <input name="f_tags" autocomplete=off value="<?=$f_tags?>" style="width: 30em"></input>
+		  <input name="f_tags" autocomplete=off value="<?=htmlspecialchars($f_tags)?>" style="width: 30em"></input>
 		</td>
 	      </tr>
 	    </table>

@@ -1,6 +1,6 @@
 ﻿<?php
 
-$source_id = $_GET['id'];
+$source_id = (int) $_GET['id'];
 
 require_once('database_connect.php');
 
@@ -57,13 +57,13 @@ mysql_close($db);
 	  ?>
 	  
 	  <div class="title">
-	    <?=$source['title']?>
+	    <?=htmlspecialchars($source['title'])?>
 	  </div>
 	  <div class="author">
-	    <?=$source['author']?>
+	    <?=htmlspecialchars($source['author'])?>
 	  </div>
 	  <div class="url">
-	    <a  target="_blank" href=<?=$source['url']?>><?=$source['url']?></a>
+	    <a  target="_blank" href=<?=htmlspecialchars($source['url'])?>><?=htmlspecialchars($source['url'])?></a>
 	  </div>
 	  
 	  <span class="button"><a href="quoteadd.php?id=<?=$source_id?>">Add new quote</a></span>
@@ -75,10 +75,10 @@ mysql_close($db);
 		
 	      <li class="quote">
 		<span class="description">
-		  <?=$quote['description']?>
+		  <?=htmlspecialchars($quote['description'])?>
 		</span>
 		<span class="dates">
-		  <?=$quote['start_time']?> - <?=$quote['end_time']?>
+		  <?=htmlspecialchars($quote['start_time'])?> - <?=htmlspecialchars($quote['end_time'])?>
 		</span>
 		<?php if(isset($queried_tags[$quote['id']])) { ?>
 		<span class="tags">
@@ -86,7 +86,7 @@ mysql_close($db);
 		</span>
 		<?php } ?>
 		<span class="content">
-&laquo;<?=$quote['content']?>&raquo;
+			&laquo;<?=htmlspecialchars($quote['content'])?>&raquo;
 		</span>
 	      </li>
 		  <?php } ?>

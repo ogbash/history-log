@@ -82,21 +82,21 @@ if ($error!="")
 		  </label>
 		</td>
 		<td>
-		  <input name="f_title" value="<?=$f_title?>" autocomplete=off ></input>
+		  <input name="f_title" value="<?=htmlspecialchars($f_title)?>" autocomplete=off ></input>
 		</td>
 	      </tr><tr>
 		<td>
 		  <label for="f_author" class="author">Author</label>
 		</td>
 		<td>
-		  <input name="f_author" value="<?=$f_author?>" autocomplete=off ></input>
+		  <input name="f_author" value="<?=htmlspecialchars($f_author)?>" autocomplete=off ></input>
 		</td>
 	      </tr><tr>
 		<td>
 		  <label for="f_url" class="url">URL</label>
 		</td>
 		<td>
-		  <input name="f_url" value="<?=$f_url?>" autocomplete=off ></input>
+		  <input name="f_url" value="<?=htmlspecialchars($f_url)?>" autocomplete=off ></input>
 		</td>
 	      </tr>
 	    </table>

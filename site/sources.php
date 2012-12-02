@@ -47,9 +47,11 @@ mysql_close($db);
 		?>
 	    <li class="source">
 	      <span class="quotecount"><?=$arr['c']?></span>
-	      <span class="title"><a href="source.php?id=<?=$arr['id']?>"><?=$arr['title']?></a></span>
-	      <span class="author"><?=$arr['author']?></span>
-	      <span class="dates"><?=$arr['min_time']?> - <?=$arr['max_time']?></span>
+	      <span class="title"><a href="source.php?id=<?=$arr['id']?>">
+			<?=htmlspecialchars($arr['title'])?></a></span>
+	      <span class="author"><?=htmlspecialchars($arr['author'])?></span>
+	      <span class="dates"><?=htmlspecialchars($arr['min_time'])?> - 
+			<?=htmlspecialchars($arr['max_time'])?></span>
 	    </li>
 		<?php } ?>
 	  </ul>
