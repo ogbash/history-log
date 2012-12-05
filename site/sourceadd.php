@@ -1,50 +1,35 @@
 ﻿<?php
 
-$error = "";
-$error_tag = "";
-$ok_message = "";
-$already_input = false;
+require_once('variables_set.php');
 
-if (isset($_POST['f_title'])){
-	$already_input = true;
-	if($_POST['f_title'] == "")
-		$error = "Введите заглавие!";
+createArrays("title","author","url");
+setVars();
 	
-	$f_title = $_POST['f_title'];
-}
-else
-	$f_title = "";
+if ($is_input['title'] && $_POST['title'] == "")
+	$errors['title'] = "Введите заглавие!";
 	
-if (isset($_POST['f_author']))
-	$f_author = $_POST['f_author'];
-else
-	$f_author = "";
-	
-if (isset($_POST['f_url']))
-	$f_url = $_POST['f_url'];
-else
-	$f_url = "";
-	
-if ($already_input==true && $error==""){
+if ($is_input['title'] && $errors['title']==""){
 	require_once('database_connect.php');
 
 	mysql_set_charset('utf8',$db);
-	$query = mysql_query('SELECT * FROM sources WHERE title=\''.mysql_real_escape_string($f_title).'\'') 
+	$query = mysql_query('SELECT * FROM sources WHERE title=\''.mysql_real_escape_string($vars['title']).'\'') 
 		or die(mysql_error());
 	if($x = mysql_fetch_array($query))
-		$error = "Такой источник уже существует!";
+		$errors['title'] = "Такой источник уже существует!";
 	else{
-		mysql_query('INSERT INTO sources VALUES(NULL,\''.mysql_real_escape_string($f_title).'\',\''.
-			mysql_real_escape_string($f_author).'\',\''.mysql_real_escape_string($f_url).'\')')
+		mysql_query('INSERT INTO sources VALUES(NULL,\''.mysql_real_escape_string($vars['title']).'\',\''.
+			mysql_real_escape_string($vars['author']).'\',\''.mysql_real_escape_string($vars['url']).'\')')
 			or die(mysql_error());
-		$f_title = ""; $f_author = ""; $f_url = "";
-		$ok_message = "Источник добавлен";
+		$last_source_id = mysql_insert_id;
+		
+		header( 'HTTP/1.1 303 See Other' );
+		header( 'Location: source.php?id='.$last_source_id);
 	}		
 	mysql_close($db);
 }
 
-if ($error!="")
-	$error_tag = "*1";
+if ($errors['title'] != "")
+	$error_tags['title'] = "*1";
 	
 ?>
 
@@ -77,32 +62,31 @@ if ($error!="")
 	    <table class="form">
 	      <tr>
 		<td>
-		  <label for="f_title" class="title">Title
-		    <span class="error"><?=$error_tag?></span>
+		  <label for="title" class="title">Title
+		    <span class="error"><?=$error_tags['title']?></span>
 		  </label>
 		</td>
 		<td>
-		  <input name="f_title" value="<?=htmlspecialchars($f_title)?>" autocomplete=off ></input>
+		  <input name="title" value="<?=htmlspecialchars($vars['title'])?>" autocomplete=off ></input>
 		</td>
 	      </tr><tr>
 		<td>
-		  <label for="f_author" class="author">Author</label>
+		  <label for="author" class="author">Author</label>
 		</td>
 		<td>
-		  <input name="f_author" value="<?=htmlspecialchars($f_author)?>" autocomplete=off ></input>
+		  <input name="author" value="<?=htmlspecialchars($vars['author'])?>" autocomplete=off ></input>
 		</td>
 	      </tr><tr>
 		<td>
-		  <label for="f_url" class="url">URL</label>
+		  <label for="url" class="url">URL</label>
 		</td>
 		<td>
-		  <input name="f_url" value="<?=htmlspecialchars($f_url)?>" autocomplete=off ></input>
+		  <input name="url" value="<?=htmlspecialchars($vars['url'])?>" autocomplete=off ></input>
 		</td>
 	      </tr>
 	    </table>
 	    <div class="errors">
-	      <span class="error"> <?=$error_tag?> <?=$error?></span>
-		  <span> <?=$ok_message?> </span>
+	      <span class="error"> <?=$error_tags['title']?> <?=$errors['title']?></span>
 	    </div>
 	    <input class="button" type="submit">
 	    <input class="button" type="button" value="cancel" onclick="location='sources.php'">

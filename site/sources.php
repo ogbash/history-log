@@ -10,7 +10,7 @@ mysql_set_charset('utf8',$db);
 $query = mysql_query('SELECT sources.id, sources.title, sources.author, quotations.source_id, 
 	MIN(quotations.start_time) AS min_time, MAX(quotations.end_time) AS max_time, COUNT(quotations.source_id) AS c
 	FROM sources LEFT JOIN quotations ON sources.id=quotations.source_id GROUP BY sources.id') 
-	or die("Database query failed!!!".mysql_error());
+	or die(mysql_error());
 
 // queries are over, disconnecting from mysql
 mysql_close($db);
