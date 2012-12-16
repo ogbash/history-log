@@ -1,13 +1,9 @@
 ﻿<?php
 
-require_once('functions.php');
-
-$source_id = (int) $_GET['id'];
-
+require_once('lib/quotation.php');
+require_once('lib/source.php');
 require_once('database_connect.php');
 	
-$query = mysql_query('SELECT * FROM sources WHERE id='.mysql_real_escape_string($source_id)) or die(mysql_error());
-
 function quotation_to_form($quotation){
 	$form = array();
 	foreach(array('content','description') as $key) 
@@ -20,6 +16,9 @@ function quotation_to_form($quotation){
 	
 	return $form;
 }
+
+$source_id = (int) $_GET['id'];
+$source = getSource($source_id);
 
 if(sizeof($_POST) == 0){
 	// GET
@@ -81,8 +80,6 @@ mysql_close($db);
 	<td id="contents">
 	  <!-- только для данной страницы -->
 	  <h2>Add new quote</h2>
-	  
-	  <?php $source = mysql_fetch_array($query) ?>
 	  
 	  <div class="title">
 	    <?=htmlspecialchars($source['title'])?>
