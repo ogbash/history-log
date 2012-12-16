@@ -39,6 +39,7 @@ if(sizeof($_POST) == 0){
 		addQuotation($quotation);
 		header( 'HTTP/1.1 303 See Other' );
 		header( 'Location: source.php?id='.$source_id);
+		mysql_close($db);
 		exit;
 		
 	}else{
