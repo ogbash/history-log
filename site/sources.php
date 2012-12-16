@@ -3,9 +3,6 @@
 // connecting to mysql and selecting database "historylog"
 require_once('database_connect.php');
 
-mysql_set_charset('utf8',$db); 
-
-
 // making query	from tables "sources" and "quotations"
 $query = mysql_query('SELECT sources.id, sources.title, sources.author, quotations.source_id, 
 	MIN(quotations.start_time) AS min_time, MAX(quotations.end_time) AS max_time, COUNT(quotations.source_id) AS c

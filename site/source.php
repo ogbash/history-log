@@ -4,8 +4,6 @@ $source_id = (int) $_GET['id'];
 
 require_once('database_connect.php');
 
-mysql_set_charset('utf8',$db); 
-
 $query1 = mysql_query('SELECT * FROM sources WHERE id='.mysql_real_escape_string($source_id)) or die(mysql_error());
 $query2 = mysql_query('SELECT * FROM quotations WHERE source_id='.mysql_real_escape_string($source_id)) or die(mysql_error());
 $query3 = mysql_query('SELECT tags.name, quotations.id  
