@@ -1,97 +1,56 @@
 ﻿<?php
 
-require_once('variables_set.php');
-
-$errors_exist = false;
-
-createArrays("description","content","startdate","enddate","tags");
-setVars();
-
-$error_no = 1;
-$f_tags_array = array();
+require_once('functions.php');
 
 $source_id = (int) $_GET['id'];
 
 require_once('database_connect.php');
-
-mysql_set_charset('utf8',$db);
 	
-if ($is_input['description'] && $_POST['description'] == ""){
-	$errors_exist = true;
-	$errors['description'] = "обязательно для заполнения";
-	$error_tags['description'] = "*".$error_no;
-	$error_no++;
-}
-
-if ($is_input['content'] && $_POST['content'] == ""){
-	$errors_exist = true;
-	$errors['content'] = "обязательно для заполнения";
-	$error_tags['content'] = "*".$error_no;
-	$error_no++;
-}
-	
-if ($is_input['startdate'] && $_POST['startdate']!="" && !strtotime($_POST['startdate'])){
-	$errors_exist = true;
-	$errors['startdate'] = "ошибка формата";
-	$error_tags['startdate'] = "*".$error_no;
-	$error_no++;
-}
-	
-if($vars['startdate'] == "")
-	$startdate_sql = "NULL";
-else
-	$startdate_sql = "'".mysql_real_escape_string($vars['startdate'])."'";
-	
-if ($is_input['enddate'] && $_POST['enddate']!="" && !strtotime($_POST['enddate'])){
-	$errors_exist = true;
-	$errors['enddate'] = "ошибка формата";
-	$error_tags['enddate'] = "*".$error_no;
-	$error_no++;
-}
-
-if($vars['enddate'] == "")
-	$enddate_sql = "NULL";
-else
-	$enddate_sql = "'".mysql_real_escape_string($vars['enddate'])."'";
-
 $query = mysql_query('SELECT * FROM sources WHERE id='.mysql_real_escape_string($source_id)) or die(mysql_error());
 
-if ( $is_input['description'] && $is_input['content'] && $errors_exist == false ){
-	mysql_query("INSERT INTO quotations VALUES(NULL,".mysql_real_escape_string($source_id).",'".
-		mysql_real_escape_string($vars['content'])."','".mysql_real_escape_string($vars['description'])."',".
-		$startdate_sql.",".$enddate_sql.")") or die(mysql_error());
-	$last_quote_id = mysql_insert_id();
-	
-	$tags_array = array_map('trim', explode(',' , $vars['tags']));
-	for ($i=0; $i<sizeof($tags_array); $i++)
-		$tags_array[$i] = "'".mysql_real_escape_string($tags_array[$i])."'";
-	$tags_quoted = implode(',' , $tags_array);
-	
-	$query2 = mysql_query("SELECT * FROM tags WHERE name IN (".$tags_quoted.")") 
-		or die(mysql_error());
-
-	$existing_tags = array();
-	while ($one_tag = mysql_fetch_array($query2))
-		$existing_tags[] = "'".$one_tag['name']."'";
-
-	for ($i=0; $i<sizeof($tags_array); $i++)
-		if (!in_array($tags_array[$i], $existing_tags))
-			mysql_query("INSERT INTO tags VALUES(NULL,".$tags_array[$i].")") 
-				or die(mysql_error());
-			
-	$query2 = mysql_query("SELECT * FROM tags WHERE name IN (".$tags_quoted.")") 
-		or die(mysql_error());
-	
-	while ($one_tag = mysql_fetch_array($query2))
-		mysql_query("INSERT INTO quotation_tags VALUES(".mysql_real_escape_string($last_quote_id).",".
-		mysql_real_escape_string($one_tag['id']).")") or die(mysql_error());
+function quotation_to_form($quotation){
+	$form = array();
+	foreach(array('content','description') as $key) 
+		$form[$key]=$quotation[$key];
 		
-	header( 'HTTP/1.1 303 See Other' );
-	header( 'Location: source.php?id='.$source_id);
-	mysql_close($db);
-	exit;
-
+	foreach(array('startdate','enddate') as $key)
+		$form[$key]=$quotation[$key]==NULL?"":string($quotation[$key]);
+		
+	$form['tags'] = implode(',',$quotation['tags']);
+	
+	return $form;
 }
+
+if(sizeof($_POST) == 0){
+	// GET
+	$quotation = newQuotation();
+	$form_data = quotation_to_form($quotation);
+	$errors = array();
+	
+} else{
+	// POST
+	$ret_arr = getErrors($_POST);
+	$quotation = $ret_arr[0];
+	$errors = $ret_arr[1];
+	$form_data = $_POST;
+	
+	if ( sizeof($errors) == 0 ){
+		// No errors -| save and redirect
+		$quotation['source_id'] = $source_id;
+		addQuotation($quotation);
+		header( 'HTTP/1.1 303 See Other' );
+		header( 'Location: source.php?id='.$source_id);
+		exit;
+		
+	}else{
+		$error_no = 1;
+		$error_tags = array();
+		foreach($errors as $key=>$value)
+			$error_tags[$key] = "*".$error_no++;
+	}
+}
+
+
 
 mysql_close($db);
 
@@ -141,41 +100,41 @@ mysql_close($db);
 	      <!-- description -->
 		<td>
 		  <label for="description">Description
-		    <span class="error"><?=$error_tags['description']?></span>
+		    <?php if(isset($errors['description'])){ ?><span class="error"><?=$error_tags['description']?></span> <?php }?>
 		  </label>
 		</td>
 		<td>
-		  <input name="description" autocomplete=off value="<?=htmlspecialchars($vars['description'])?>"></input>
+		  <input name="description" autocomplete=off value="<?=htmlspecialchars($form_data['description'])?>"></input>
 		</td>
 	      </tr><tr>
 	      <!-- content -->
 		<td>
 		  <label for="content">Content
-		    <span class="error"><?=$error_tags['content']?></span>
+		    <?php if(isset($errors['content'])){ ?><span class="error"><?=$error_tags['content']?></span> <?php }?>
 		  </label>
 		</td>
 		<td>
-		  <textarea name="content" cols="60" rows="10"><?=htmlspecialchars($vars['content'])?></textarea>
+		  <textarea name="content" cols="60" rows="10"><?=htmlspecialchars($form_data['content'])?></textarea>
 		</td>
 	      </tr><tr>
 	      <!-- start date -->
 		<td>
 		  <label for="startdate">Start date
-			<span class="error"><?=$error_tags['startdate']?></span>
+		    <?php if(isset($errors['startdate'])){ ?><span class="error"><?=$error_tags['startdate']?></span> <?php }?>
 		  </label>
 		</td>
 		<td>
-		  <input name="startdate" autocomplete=off value="<?=htmlspecialchars($vars['startdate'])?>"></input>
+		  <input name="startdate" autocomplete=off value="<?=htmlspecialchars($form_data['startdate'])?>"></input>
 		</td>
 	      </tr><tr>
 	      <!-- end date -->
 		<td>
 		  <label for="enddate">End date
-		    <span class="error"><?=$error_tags['enddate']?></span>
+		    <?php if(isset($errors['enddate'])){ ?><span class="error"><?=$error_tags['enddate']?></span> <?php }?>
 		  </label>
 		</td>
 		<td>
-		  <input name="enddate" autocomplete=off value="<?=htmlspecialchars($vars['enddate'])?>"></input>
+		  <input name="enddate" autocomplete=off value="<?=htmlspecialchars($form_data['enddate'])?>"></input>
 		</td>
 	      </tr><tr>
 	      <!-- tags -->		
@@ -183,15 +142,14 @@ mysql_close($db);
 		  <label for="tags">Tags</label>
 		</td>
 		<td>
-		  <input name="tags" autocomplete=off value="<?=htmlspecialchars($vars['tags'])?>" style="width: 30em"></input>
+		  <input name="tags" autocomplete=off value="<?=htmlspecialchars($form_data['tags'])?>" style="width: 30em"></input>
 		</td>
 	      </tr>
 	    </table>
 	    <div class="errors">
-			<?php foreach($errors as $key => $value){
-					if ($value != ""){?>
+			<?php foreach($errors as $key => $value){ ?>
 						<span class="error"><?=$error_tags[$key]?> <?=$value?></span><br>
-			<?php }} ?>
+			<?php } ?>
 	    </div>
 	    <input class="button" type="submit">
 	    <input class="button" type="button" value="cancel" onclick="location='source.php?id=<?=$source_id?>'">
