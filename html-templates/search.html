@@ -1,0 +1,185 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="main.css" rel="stylesheet" type="text/css">
+  </head>
+  
+  <!-- общее для всех страниц -->
+  <body>
+    <div id="site-header">
+      Quote-mining & history-logging
+    </div>
+    <table>
+      <tr>
+	<td id="menu">
+	  <ul>
+	    <li><a href="sources.html">Sources</a></li>
+	    <li><a href="tags.html">Tags</a></li>
+	    <li><a href="events.html">Events</a></li>
+	    <li><a href="search.html" class="active">Search</a></li>
+	    <li><a href="sourceadd.html">Add source</a></li>
+	  </ul>
+	</td>
+	
+	<script>
+	  function item_visible(elem, visible) {
+	    if (!visible) {
+	      elem.classList.add("item-closed")
+	      elem.classList.remove("item-opened")
+            } else {
+	      elem.classList.add("item-opened")
+	      elem.classList.remove("item-closed")
+            }
+	  }
+
+	  function toggle_year(year) {
+	    elem = document.getElementById("y"+year)
+	    elem_det = document.getElementById("y"+year+"-details")
+            isVisible = !(elem_det.style.display=="none")
+
+            // change arrow
+	    item_visible(elem, !isVisible)
+
+	    // show/hide details
+	    if (isVisible) display = "none"
+	    else display = "block"
+	    elem_det.style.display = display
+          }
+
+	  function toggle_quote(quoteId) {
+	    elem = document.getElementById("q"+quoteId)
+	    elem_det = document.getElementById("q"+quoteId+"-details")
+            isVisible = !(elem_det.style.display=="none")
+
+            // change arrow
+	    item_visible(elem, !isVisible)
+
+	    // show/hide details
+	    if (isVisible) display = "none"
+	    else display = "block"
+	    elem_det.style.display = display
+	  }
+	</script>
+	<td id="contents">
+	  <!-- только для данной страницы -->
+	  <h2>Quote search</h2>
+	  <form action="search.html" method="POST">
+	    <table class="form">
+	      <tr>
+	      <!-- start date -->
+		<td>
+		  <label for="f_startdate">Start date</label>
+		</td>
+		<td>
+		  <input id="f_startdate" value="1990-03-01"></input>
+		</td>
+	      </tr><tr>
+	      <!-- end date -->
+		<td>
+		  <label for="f_enddate">End date</label>
+		</td>
+		<td>
+		  <input id="f_enddate" value="1995-01-01"></input>
+		</td>
+	      </tr><tr>
+	      <!-- tags -->
+		<td>
+		  <label for="f_tags">Tags</label>
+		</td>
+		<td>
+		  <input id="f_tags" value="нефть & (цены | либерализация)" style="width: 40em"></input>
+		</td>
+	      </tr>
+	    </table>
+	    <input class="button" type="submit" value="Искать">
+
+	  </form>
+
+	  <h2>Results</h2>
+	  By start date
+	  <ul class="years">
+            <li class="item-closed" id="y1991"><span class="item-header" onclick="toggle_year(1991)">1991 (7)</span>
+	      <ul class="months" id="y1991-details" style="display: none">
+		<li class="item-closed" id="y1991m1"><span class="item-header">Январь (2)</span>
+		  <ul class="quotes">
+		    <!-- цитата 1 -->
+		    <li class="quote item-closed" id="q1">
+		      <span class="description" onclick="toggle_quote(1)">
+			Трудности с экспортом нефти из России
+		      </span>
+		      <div class="quote-details" id="q1-details" style="display:none">
+			<span class="dates">
+			  1.01.1991 - 1.01.1993
+			</span>
+			<span class="tags">
+			  нефть, экспорт
+			</span>
+			<span class="content">
+			  &laquo;Финансовые трудности усугублялись тем, что в 1991-1992 годах под влиянием международных санкций против Югославии из-за прекращения в связи с этим экспорта по нефтепроводу "Адрия", а также из-за снижения спроса на нефть в Чехии, Польше, Словакии, Венгрии и неразберихи, которая возникла с вывозом нефти через порты Балтии и Украины, возможности традиционного экспорта российского топлива серьезно снизились.&raquo;
+			</span>
+		      </div>
+		    </li>
+
+		    <!-- цитата 2 -->
+		    <li class="quote item-closed" id="q2">
+		      <span class="description" onclick="toggle_quote(2)">
+			Квоты и цены на нефть
+		      </span>
+		      <div class="quote-details" id="q2-details" style="display:none">
+			<span class="dates">
+			  1.01.1991 - 1.01.1992
+			</span>
+			<span class="tags">
+			  нефть, цены, квоты
+			</span>
+			<span class="content">
+			  &laquo;К тому же на протяжении последних двух лет на фоне борьбы и противостояния Союза и России, общей дезорганизации власти, разгула коррупции, которая к тому времени уже получила широчайший размах, количество выданных разными правительственными органами квот и лицензий на вывоз нефти вышло далеко за пределы здравого смысла. Квота стала тогда как бы "философским камнем", позволявшим почти мгновенно превращать обесценивающийся рубль в доллары. Если рыночный курс обмена в конце 1991 года равнялся 170 рублям за доллар, то, раздобыв официальную квоту, за каждый доллар нужно было заплатить всего один рубль. Таким образом, даже при немалых взятках чиновникам эффективность квоты уже в момент ее получения составляла более десяти тысяч процентов в день. Причем, обретя эту воистину волшебную бумажку, можно было никакой нефти не покупать и не экспортировать, а тут же перепродать полученное разрешение тем, кто нефтью занимается, – и состояние в кармане.&raquo;
+			</span>
+		      </div>
+		    </li>
+		  </ul> <!-- quotes -->
+		</li>
+
+		<li class="item-closed" id="y1991m4"><span class="item-header">Апрель (5)</span>
+		</li>
+	      </ul> <!-- months -->
+	    </li>
+
+	    <!-- next year -->
+            <li class="item-closed" id="y1992"><span class="item-header" onclick="toggle_year(1992)">1992 (3)</span>
+	      <ul class="months" id="y1992-details" style="display: none">
+		<li class="item-closed" id="y1992m1"><span class="item-header">Январь (1)</span>
+		  <ul class="quotes">
+		    <!-- цитата 3 -->
+		    <li class="quote item-closed" id="q3">
+		      <span class="description"  onclick="toggle_quote(3)">
+			Либерализация цены на нефть
+		      </span>
+		      <div class="quote-details" id="q3-details" style="display:none">
+			<span class="dates">
+			  1.02.1992 - 15.02.1992
+			</span>
+			<span class="tags">
+			  нефть, цены, либерализация
+			</span>
+			<span class="content">
+			  &laquo;В начале февраля, когда уже стало очевидно, что рынок начинает складываться, на одном из регулярных вечерних совещаний с ближайшими коллегами предложил, воспользовавшись первым импульсом перемен и растерянностью противников, быстро и неожиданно либерализовать цены на нефть и нефтепродукты. В ходе обсуждения возобладало противоположное мнение: лучше все-таки, как и намечалось, дождаться конца отопительного сезона, не суетиться. А в результате – неприятные последствия этого осторожного решения. С конца февраля – начала марта именно борьба против либерализации цен на топливо становится стержнем, вокруг которого постепенно начинается консолидация оппозиций курсу реформ. Просматривая прессу этого периода, причем отнюдь не только коммунистическую, видишь, что истерика по поводу размораживания цен на нефть получила почти всеобщее распространение.&raquo;
+			</span>
+		      </div>
+		    </li>
+		  </ul> <!-- quotes -->
+		</li>
+
+		<li class="item-closed" id="y1992m5"><span class="item-header">Май (2)</span>
+		</li>
+	      </ul> <!-- months -->
+	    </li>
+
+	  </div>
+	</td>
+
+      </tr>
+    </table>
+
+  </body>
+</html>
