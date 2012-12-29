@@ -107,7 +107,7 @@ ul.quotes {
 }
 
 li.quote {
-    margin-top: 1em;
+    margin-top: .5em;
 }
 
 .description {
@@ -144,4 +144,16 @@ table.form td {
 
 .errors {
     margin: 10px;
+}
+
+.item-opened {
+    list-style-image: url("images/opened.png");
+}
+
+.item-closed {
+    list-style-image: url("images/closed.png");
+}
+
+.item-header {
+    font-weight: bold;
 }
