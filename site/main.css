@@ -48,15 +48,16 @@ a:hover {
 /* Sources, etc */
 
 .button {
-    border: ridge 3px #ffd000;
+    border: outset 4px #ffd000;
     padding: 3px;
-    font-weight: bold;
-    background-color: yellow;
+    font-weight: normal;
+    background-color: #ffd000;
     display: inline-block;
+    //font-family: sans;
 }
 
 .button:hover {
-    background-color: #ffd000;
+    background-color: yellow;
 }
 
 ul.source {
@@ -65,15 +66,15 @@ ul.source {
 }
 
 li.source {
-    border-top: #ffd000 solid 3px;
-    margin-top: 20px;
+    border-top: #ffd000 solid 1px;
+    margin-top: 10px;
 }
 
 .title {
-    font-size: 1.5em;
+    font-size: 1.2em;
     font-family: serif;
     color: green;
-    #font-weight: bold;
+    font-weight: bold;
 }
 
 li.source .title {
@@ -82,6 +83,7 @@ li.source .title {
 
 .author {
     font-style: italic;
+    font-size: .8em;
 }
 
 li.source .author {
@@ -92,13 +94,16 @@ li.source .author {
     display: float;
     float: right;
     font-weight: bold;
-    background-color: yellow; 
+    background-color: #ffd000; 
     padding: 5px;
+    min-width: 2em;
+    text-align: center;
 }
 
 /* external url */
 .url {
     color: blue;
+    font-size: 0.8em;
     /*target-name: new;*/
 }
 
@@ -126,10 +131,12 @@ li.quote {
 .tags {
     font-style: italic;
     margin-left: 10px;
+    font-size: 0.8em;
 }
 .content {
     display: block;
     font-size: 0.8em;
+    font-family: sans;
 }
 
 /* forms */
