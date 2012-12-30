@@ -17,12 +17,9 @@ function addQuotation ($quotation) {
 		.($quotation['startdate']==NULL? "NULL" : "'".toSqlDate($quotation['startdate'])."'").","
 		.($quotation['enddate']==NULL? "NULL" : "'".toSqlDate($quotation['enddate'])."'").")";
 		
-	echo($qstr);
-	
 	mysql_query($qstr) or die(mysql_error());
 	$last_quote_id = mysql_insert_id();
 	
-	//$tags_array = array_map('trim', explode(',' , $quotation['tags']));
 	$tags_array = array();
 	for ($i=0; $i<sizeof($quotation['tags']); $i++)
 		$tags_array[$i] = "'".mysql_real_escape_string($quotation['tags'][$i])."'";

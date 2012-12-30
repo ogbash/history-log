@@ -120,6 +120,7 @@ if (sizeof($_POST)>0){
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link href="main.css" rel="stylesheet" type="text/css">
+	<script src="js/jquery-1.8.3.js"></script>
   </head>
   
   <!-- общее для всех страниц -->
@@ -177,6 +178,21 @@ if (sizeof($_POST)>0){
 	    else display = "block"
 	    elem_det.style.display = display
 	  }
+	  $(document).ready(function(){
+		$("li > span:first-child").click(function () {
+			var li = $(this).parent();
+			var closed = li.hasClass("item-closed");
+			var children = li.children();
+			if (closed) {
+				children.filter(".collapsable").show();
+			} else {
+				children.filter(".collapsable").hide();
+			}
+			li.toggleClass("item-closed item-opened")
+		});
+	});
+
+	  
 	</script>
 	<td id="contents">
 	  <!-- только для данной страницы -->
@@ -238,20 +254,21 @@ if (sizeof($_POST)>0){
 		<?php if($i==0 || $year != $searchResults[$i-1]['year']) { ?>
         <li class="item-closed" id="<?="y".$year?>">
 			<!-- start another year -->
-			<span class="item-header" onclick="toggle_year(<?=$year?>)"><?=$year?></span>
-			<ul class="months" id="<?="y".$year."-details"?>" style="display: none">
+			<span class="item-header"><?=$year?></span>
+			<!-- months -->
+			<ul class="collapsable months" id="<?="y".$year."-details"?>" style="display: none">
 		<?php } ?>
 			<?php if($i==0 || $month != $searchResults[$i-1]['month']) { ?>
 				<!-- start another month -->
 				<li class="item-closed" id="y1991m1"><span class="item-header"><?=$month?></span>
 			<?php } ?>
-					<ul class="quotes">
+					<ul class="collapsable quotes" style="display: none">
 						<!-- цитата -->
 						<li class="quote item-closed" id="<?="q".$i?>">
-							<span class="description" onclick="toggle_quote(<?=$i?>)">
+							<span class="description">
 								<?=$searchResults[$i]['description']?>
 							</span>
-							<div class="quote-details" id="<?="q".$i."-details"?>" style="display:none">
+							<div class="quote-details collapsable" id="<?="q".$i."-details"?>" style="display:none">
 								<span class="dates">
 									<?=$searchResults[$i]['start_time']?> - <?=$searchResults[$i]['end_time']?>
 								</span>
