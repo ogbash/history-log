@@ -84,7 +84,7 @@ mysql_close($db);
 		</span>
 		<?php } ?>
 		<span class="content">
-			&laquo;<?=htmlspecialchars($quote['content'])?>&raquo;
+			&laquo;<?=nl2br(trim(htmlspecialchars($quote['content'])))?>&raquo;
 		</span>
 	      </li>
 		  <?php } ?>
