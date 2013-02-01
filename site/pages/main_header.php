@@ -7,11 +7,11 @@
 <body>
 <?php 
    $PAGES = array("sources", "tags", "search");
-   $PAGENAMES = array("sources"=>"Sources","tags"=>"Tags","search"=>"Search");
+   $PAGENAMES = array("sources"=>"Источники","tags"=>"Метки","search"=>"Поиск");
    if (!isset($ACTIVE_PAGE)) $ACTIVE_PAGE="";
 ?>
  <div id="site-header">
-      Quote-mining & history-logging
+      История по цитатам
     </div>
     <table>
       <tr>

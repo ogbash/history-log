@@ -16,8 +16,8 @@ mysql_close($db);
 $ACTIVE_PAGE="sources";
 require_once("pages/main_header.php"); ?>
 
-	  <h1>Source list</h1>
-	  <span class="button"><a href="sourceadd.php">Add new source</a></span>
+	  <h1>Список источников</h1>
+	  <span class="button"><a href="sourceadd.php">Добавить новый источник</a></span>
 	  <ul class="source">
 		<?php
 		while($arr = mysql_fetch_array($query)){

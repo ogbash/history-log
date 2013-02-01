@@ -55,7 +55,7 @@ mysql_close($db);
 <?php require_once("pages/main_header.php"); ?>
 
 	  <!-- только для данной страницы -->
-	  <h2>Add new quote</h2>
+	  <h2>Добавление цитаты</h2>
 	  
 	  <div class="title">
 	    <?=htmlspecialchars($source['title'])?>
@@ -72,7 +72,7 @@ mysql_close($db);
 	      <tr>
 	      <!-- description -->
 		<td>
-		  <label for="description">Description
+		  <label for="description">Описание
 		    <?php if(isset($errors['description'])){ ?><span class="error"><?=$error_tags['description']?></span> <?php }?>
 		  </label>
 		</td>
@@ -82,7 +82,7 @@ mysql_close($db);
 	      </tr><tr>
 	      <!-- content -->
 		<td>
-		  <label for="content">Content
+		  <label for="content">Содержание
 		    <?php if(isset($errors['content'])){ ?><span class="error"><?=$error_tags['content']?></span> <?php }?>
 		  </label>
 		</td>
@@ -92,7 +92,7 @@ mysql_close($db);
 	      </tr><tr>
 	      <!-- start date -->
 		<td>
-		  <label for="startdate">Start date
+		  <label for="startdate">Начало
 		    <?php if(isset($errors['startdate'])){ ?><span class="error"><?=$error_tags['startdate']?></span> <?php }?>
 		  </label>
 		</td>
@@ -102,7 +102,7 @@ mysql_close($db);
 	      </tr><tr>
 	      <!-- end date -->
 		<td>
-		  <label for="enddate">End date
+		  <label for="enddate">Конец
 		    <?php if(isset($errors['enddate'])){ ?><span class="error"><?=$error_tags['enddate']?></span> <?php }?>
 		  </label>
 		</td>
@@ -112,7 +112,7 @@ mysql_close($db);
 	      </tr><tr>
 	      <!-- tags -->		
 		<td>
-		  <label for="tags">Tags</label>
+		  <label for="tags">Метки</label>
 		</td>
 		<td>
 		  <input name="tags" autocomplete=off value="<?=htmlspecialchars($form_data['tags'])?>" style="width: 30em"></input>
@@ -124,8 +124,8 @@ mysql_close($db);
 						<span class="error"><?=$error_tags[$key]?> <?=$value?></span><br>
 			<?php } ?>
 	    </div>
-	    <input class="button" type="submit">
-	    <input class="button" type="button" value="cancel" onclick="location='source.php?id=<?=$source_id?>'">
+	    <input class="button" type="submit" value="Добавить">
+	    <input class="button" type="button" value="Отменить" onclick="location='source.php?id=<?=$source_id?>'">
 	  </form>
 
   <?php require_once("pages/main_footer.php"); ?>

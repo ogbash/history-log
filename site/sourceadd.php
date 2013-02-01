@@ -40,12 +40,12 @@ if (isset($errors['title']))
 <?php require_once("pages/main_header.php"); ?>
 
 	  <!-- только для данной страницы -->
-	  <h2>Add new source</h2>
+	  <h2>Добавление источника</h2>
 	  <form action="sourceadd.php" method="POST">
 	    <table class="form">
 	      <tr>
 		<td>
-		  <label for="title" class="title">Title
+		  <label for="title">Заголовок
 		    <?php if (isset($errors['title'])) {?><span class="error"><?=$error_tags['title']?></span><?php }?>
 		  </label>
 		</td>
@@ -54,14 +54,14 @@ if (isset($errors['title']))
 		</td>
 	      </tr><tr>
 		<td>
-		  <label for="author" class="author">Author</label>
+		  <label for="author">Автор</label>
 		</td>
 		<td>
 		  <input name="author" value="<?=htmlspecialchars($source['author'])?>" autocomplete=off ></input>
 		</td>
 	      </tr><tr>
 		<td>
-		  <label for="url" class="url">URL</label>
+		  <label for="url">интернет страница</label>
 		</td>
 		<td>
 		  <input name="url" value="<?=htmlspecialchars($source['url'])?>" autocomplete=off ></input>
@@ -73,8 +73,8 @@ if (isset($errors['title']))
 			<span class="error"> <?=$error_tags[$key]?> <?=$errors[$key]?></span>
 			<?php } ?>
 	    </div>
-	    <input class="button" type="submit">
-	    <input class="button" type="button" value="cancel" onclick="location='sources.php'">
+	    <input class="button" type="submit" value="Добавить">
+	    <input class="button" type="button" value="Отменить" onclick="location='sources.php'">
 	  </form>
 
 <?php require_once("pages/main_footer.php"); ?>

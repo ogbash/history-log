@@ -175,15 +175,13 @@ require_once("pages/main_header.php"); ?>
 
 	  
 	</script>
-
-	  <!-- только для данной страницы -->
-	  <h2>Quote search</h2>
+	  <h1>Поиск цитат</h1>
 	  <form action="search.php" method="POST">
 	    <table class="form">
 	     <tr>
 	      <!-- start date -->
 		<td>
-		  <label for="f_startdate">Start date
+		  <label for="f_startdate">Начало
 		  <?php if(isset($error_tags['f_startdate'])){ ?><span class="error"><?=$error_tags['f_startdate']?>
 		  </span> <?php }?></label>
 		</td>
@@ -193,7 +191,7 @@ require_once("pages/main_header.php"); ?>
 	      </tr><tr>
 	      <!-- end date -->
 		<td>
-		  <label for="f_enddate">End date
+		  <label for="f_enddate">Конец
 		  <?php if(isset($error_tags['f_enddate'])){ ?><span class="error"><?=$error_tags['f_enddate']?>
 		  </span> <?php }?></label>
 		</td>
@@ -203,7 +201,7 @@ require_once("pages/main_header.php"); ?>
 	      </tr><tr>
 	      <!-- tags -->
 		<td>
-		  <label for="f_tags">Tags
+		  <label for="f_tags">Метки
 		  <?php if(isset($error_tags['f_tags'])){ ?><span class="error"><?=$error_tags['f_tags']?></span> <?php }?>
 		  </label>
 		</td>
@@ -222,9 +220,8 @@ require_once("pages/main_header.php"); ?>
 			<?php } ?>
 	    </div>
 
-	  <h2>Results</h2>
+	  <h2>Результаты поиска</h2>
 	  
-	  By start date
 	  <ul class="years">
 	  
 	  <?php 	if(isset($searchResults)) {

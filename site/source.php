@@ -25,7 +25,7 @@ mysql_close($db);
 <?php require_once("pages/main_header.php"); ?>
 
 	  <!-- только для данной страницы -->
-	  <h2>Source</h2>
+	  <h2>Источник</h2>
 
 	  <?php 
 		$source = mysql_fetch_array($query1);
@@ -41,7 +41,7 @@ mysql_close($db);
 	    <a  target="_blank" href=<?=htmlspecialchars($source['url'])?>><?=htmlspecialchars($source['url'])?></a>
 	  </div>
 	  
-	  <span class="button"><a href="quoteadd.php?id=<?=$source_id?>">Add new quote</a></span>
+	  <span class="button"><a href="quoteadd.php?id=<?=$source_id?>">Добавить цитату</a></span>
 		
 	  <div>
 	    <ul class="quotes">
