@@ -1,5 +1,4 @@
-﻿<?php
-
+﻿<?
 require_once('mysql.php');
 
 function getSource($source_id){

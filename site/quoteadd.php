@@ -1,9 +1,8 @@
-﻿<?php
-
-require_once('lib/quotation.php');
+<?php
 require_once('lib/source.php');
+require_once('lib/quotation.php');
 require_once('database_connect.php');
-	
+
 function quotation_to_form($quotation){
 	$form = array();
 	foreach(array('content','description') as $key) 
@@ -50,35 +49,11 @@ if(sizeof($_POST) == 0){
 	}
 }
 
-
-
 mysql_close($db);
 
 ?>
+<?php require_once("pages/main_header.php"); ?>
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link href="main.css" rel="stylesheet" type="text/css">
-  </head>
-  
-  <!-- общее для всех страниц -->
-  <body>
-    <div id="site-header">
-      Quote-mining & history-logging
-    </div>
-    <table>
-      <tr>
-	<td id="menu">
-	  <ul>
-	    <li><a href="sources.php">Sources</a></li>
-	    <li><a href="tags.html">Tags</a></li>
-	    <li><a href="events.html">Events</a></li>
-	    <li><a href="sourceadd.php">Add source</a></li>
-	  </ul>
-	</td>
-
-	<td id="contents">
 	  <!-- только для данной страницы -->
 	  <h2>Add new quote</h2>
 	  
@@ -152,8 +127,5 @@ mysql_close($db);
 	    <input class="button" type="submit">
 	    <input class="button" type="button" value="cancel" onclick="location='source.php?id=<?=$source_id?>'">
 	  </form>
-	</td>
-      </tr>
-    </table>
-  </body>
-</html>
+
+  <?php require_once("pages/main_footer.php"); ?>

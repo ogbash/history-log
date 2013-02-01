@@ -12,30 +12,10 @@ $query = mysql_query('SELECT sources.id, sources.title, sources.author, quotatio
 // queries are over, disconnecting from mysql
 mysql_close($db);
 ?>
+<?php 
+$ACTIVE_PAGE="sources";
+require_once("pages/main_header.php"); ?>
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link href="main.css" rel="stylesheet" type="text/css">
-  </head>
-<body>
-
- <div id="site-header">
-      Quote-mining & history-logging
-    </div>
-    <table>
-      <tr>
-	<td id="menu">
-	  <ul>
-	    <li class="active"><a href="sources.html">Sources</a></li>
-	    <li><a href="tags.html">Tags</a></li>
-	    <li><a href="events.html">Events</a></li>
-	    <li><a href="sourceadd.php">Add source</a></li>
-	    <li><a href="quoteadd.php">Add quote</a></li>
-	  </ul>
-	</td>
-	
-	<td id="contents">
 	  <h1>Source list</h1>
 	  <span class="button"><a href="sourceadd.php">Add new source</a></span>
 	  <ul class="source">
@@ -52,10 +32,5 @@ mysql_close($db);
 	    </li>
 		<?php } ?>
 	  </ul>
-	</td>
 
-      </tr>
-    </table>
-
-</body>
-</html>
+<?php require_once("pages/main_footer.php"); ?>

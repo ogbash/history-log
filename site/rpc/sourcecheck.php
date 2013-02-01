@@ -23,5 +23,4 @@ mysql_close($db) or die("Closing db failed");
 
 $xmlresp = xml_create_response($result);
 echo $xmlresp->saveXML();
-
 ?>

@@ -116,29 +116,10 @@ if (sizeof($_POST)>0){
 }
 
 ?>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link href="main.css" rel="stylesheet" type="text/css">
-	<script src="js/jquery-1.8.3.js"></script>
-  </head>
-  
-  <!-- общее для всех страниц -->
-  <body>
-    <div id="site-header">
-      Quote-mining & history-logging
-    </div>
-    <table>
-      <tr>
-	<td id="menu">
-	  <ul>
-	    <li><a href="sources.php">Sources</a></li>
-	    <li><a href="tags.html">Tags</a></li>
-	    <li><a href="events.html">Events</a></li>
-	    <li><a href="search.php" class="active">Search</a></li>
-	    <li><a href="sourceadd.php">Add source</a></li>
-	  </ul>
-	</td>
+
+<?php
+$ACTIVE_PAGE="search";
+require_once("pages/main_header.php"); ?>
 	
 	<script>
 	  function item_visible(elem, visible) {
@@ -194,7 +175,7 @@ if (sizeof($_POST)>0){
 
 	  
 	</script>
-	<td id="contents">
+
 	  <!-- только для данной страницы -->
 	  <h2>Quote search</h2>
 	  <form action="search.php" method="POST">
@@ -291,10 +272,5 @@ if (sizeof($_POST)>0){
 		<?php
 			} }?>
 		</ul>
-	</td>
 
-      </tr>
-    </table>
-
-  </body>
-</html>
+<?php require_once("pages/main_footer.php"); ?>

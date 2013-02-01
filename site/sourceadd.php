@@ -37,29 +37,8 @@ if (isset($errors['title']))
 	
 ?>
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link href="main.css" rel="stylesheet" type="text/css">
-  </head>
-  
-  <!-- общее для всех страниц -->
-  <body>
-    <div id="site-header">
-      Quote-mining & history-logging
-    </div>
-    <table>
-      <tr>
-	<td id="menu">
-	  <ul>
-	    <li><a href="sources.php">Sources</a></li>
-	    <li><a href="tags.html">Tags</a></li>
-	    <li><a href="events.html">Events</a></li>
-	    <li class="active"><a href="sourceadd.html">Add source</a></li>
-	  </ul>
-	</td>
+<?php require_once("pages/main_header.php"); ?>
 
-	<td id="contents">
 	  <!-- только для данной страницы -->
 	  <h2>Add new source</h2>
 	  <form action="sourceadd.php" method="POST">
@@ -97,8 +76,5 @@ if (isset($errors['title']))
 	    <input class="button" type="submit">
 	    <input class="button" type="button" value="cancel" onclick="location='sources.php'">
 	  </form>
-	</td>
-      </tr>
-    </table>
-  </body>
-</html>
+
+<?php require_once("pages/main_footer.php"); ?>
