@@ -1,4 +1,5 @@
 ﻿<?php
+require_once('lib/utils.php');
 
 $source_id = (int) $_GET['id'];
 
@@ -53,7 +54,7 @@ mysql_close($db);
 		  <?=htmlspecialchars($quote['description'])?>
 		</span>
 		<span class="dates">
-		  <?=htmlspecialchars($quote['start_time'])?> - <?=htmlspecialchars($quote['end_time'])?>
+		 <?=htmlspecialchars(formatRange(toDateTime($quote['start_time']), toDateTime($quote['end_time'])))?>
 		</span>
 		<?php if(isset($queried_tags[$quote['id']])) { ?>
 		<span class="tags">

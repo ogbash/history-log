@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', '1');
+require_once('lib/utils.php');
 
 // connecting to mysql and selecting database "historylog"
 require_once('database_connect.php');
@@ -27,8 +29,7 @@ require_once("pages/main_header.php"); ?>
 	      <span class="title"><a href="source.php?id=<?=$arr['id']?>">
 			<?=htmlspecialchars($arr['title'])?></a></span>
 	      <span class="author"><?=htmlspecialchars($arr['author'])?></span>
-	      <span class="dates"><?=htmlspecialchars($arr['min_time'])?> - 
-			<?=htmlspecialchars($arr['max_time'])?></span>
+		<span class="dates"><?=htmlspecialchars(formatRange(toDateTime($arr['min_time']), toDateTime($arr['max_time'])))?></span>
 	    </li>
 		<?php } ?>
 	  </ul>

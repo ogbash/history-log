@@ -6,10 +6,12 @@ a {
     color: inherit;
 }
 
+
 a:hover {
     /* decorate when over link */
-    text-decoration: underline;
+    /*text-decoration: underline;*/
 }
+
 
 /* Main layout */
 #site-header {
@@ -73,7 +75,8 @@ a:hover {
 }
 
 .button:hover {
-    background-color: yellow;
+    background-color: #ffd000;
+    //background-color: yellow;
 }
 
 ul.source {
@@ -154,7 +157,7 @@ li.quote {
     background-color: rgb(255, 255, 255);
     font-size: 0.8em;
     font-weight: normal;
-    color: rgb(114, 114, 114);
+    color: rgb(70, 70, 70);
     font-family: arial;
     padding-left: 5px;
     padding-right: 5px;
