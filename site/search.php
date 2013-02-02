@@ -76,10 +76,10 @@ $search = newSearch();
 $errors = array();
 $form = $search;
 
-if (sizeof($_POST)>0){
-	$form = $_POST;
+if (sizeof($_GET)>0){
+	$form = $_GET;
 	foreach($search as $key=>$value)
-			$search[$key] = $_POST[$key];
+			$search[$key] = $_GET[$key];
 	$ret_err = getErrors($search);
 	$search = $ret_err[0];
 	$errors = $ret_err[1];
@@ -176,7 +176,7 @@ require_once("pages/main_header.php"); ?>
 	  
 	</script>
 	  <h1>Поиск цитат</h1>
-	  <form action="search.php" method="POST">
+	  <form action="search.php" method="GET">
 	    <table class="form">
 	     <tr>
 	      <!-- start date -->
@@ -243,7 +243,7 @@ require_once("pages/main_header.php"); ?>
 					<ul class="collapsable quotes" style="display: none">
 						<!-- цитата -->
 						<li class="quote item-closed" id="<?="q".$i?>">
-							<span class="description">
+							<span class="description item-header">
 								<?=$searchResults[$i]['description']?>
 							</span>
 							<div class="quote-details collapsable" id="<?="q".$i."-details"?>" style="display:none">
@@ -254,7 +254,7 @@ require_once("pages/main_header.php"); ?>
 									tags
 								</span>
 								<span class="content">
-									&laquo;<?=$searchResults[$i]['content']?>&raquo;
+                                         				&laquo;<?=nl2br(trim(htmlspecialchars($searchResults[$i]['content'])))?>&raquo;
 								</span>
 							</div>
 						</li>
