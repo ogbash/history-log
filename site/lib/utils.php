@@ -70,7 +70,7 @@ function formatRange (&$start, &$end)
 
 function javascriptDate($d) {
   return "new Date(".$d->format('Y').",".
-    $d->format('n').",".
+    ($d->format('n')-1).",".
     $d->format('d').",".
     $d->format('H').",".
     $d->format('i').",".
