@@ -68,4 +68,13 @@ function formatRange (&$start, &$end)
   return formatDate($start) . " -- " . formatDate($end);
 }
 
+function javascriptDate($d) {
+  return "new Date(".$d->format('Y').",".
+    $d->format('n').",".
+    $d->format('d').",".
+    $d->format('H').",".
+    $d->format('i').",".
+    $d->format('s').")";
+}
+
 ?>

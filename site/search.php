@@ -1,4 +1,7 @@
 ﻿<?php
+ini_set('display_errors','1');
+
+require_once("lib/utils.php");
 
 $months_rus = array("Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь",
 					"Октябрь", "Ноябрь", "Декабрь");
@@ -221,6 +224,10 @@ require_once("pages/main_header.php"); ?>
 	    </div>
 
 	  <h2>Результаты поиска</h2>
+	  <div id="resultCanvas">
+	    <canvas width="600" style="cursor: pointer;"> </canvas>
+	    <div></div>
+	  </div>
 	  
 	  <ul class="years">
 	  
@@ -242,11 +249,11 @@ require_once("pages/main_header.php"); ?>
 			<?php } ?>
 					<ul class="collapsable quotes" style="display: none">
 						<!-- цитата -->
-						<li class="quote item-closed" id="<?="q".$i?>">
+						<li class="quote item-closed" id="<?="q".$searchResults[$i]['quotation_id']?>">
 							<span class="description item-header">
 								<?=$searchResults[$i]['description']?>
 							</span>
-							<div class="quote-details collapsable" id="<?="q".$i."-details"?>" style="display:none">
+							<div class="quote-details collapsable" id="<?="q".$searchResults[$i]['quotation_id']."-details"?>" style="display:none">
 								<span class="dates">
 									<?=$searchResults[$i]['start_time']?> - <?=$searchResults[$i]['end_time']?>
 								</span>
@@ -269,5 +276,20 @@ require_once("pages/main_header.php"); ?>
 		<?php
 			} }?>
 		</ul>
+
+	    <script src="js/timeline.js"></script>
+	    <script>
+	    var quotations = {
+	    <?php
+	    foreach($searchResults as $result) {
+	      echo $result["quotation_id"].": {";
+	      echo 'id:'.$result["quotation_id"].',';
+	      echo 'start_time: '.javascriptDate(new DateTime($result['start_time'])).',';
+	      echo 'end_time: '.javascriptDate(new DateTime($result['end_time'])).'';
+	      echo "},\n";
+	    } ?>
+	    };
+qc = new QuotationsCanvas($("#resultCanvas"), quotations);
+	    </script>
 
 <?php require_once("pages/main_footer.php"); ?>
