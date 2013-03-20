@@ -22,7 +22,7 @@ function formatDate ($dateTime)
     return $dateTime->format('Y-m-d H:i');
 }
 
-function formatRange (&$start, &$end)
+function formatRange ($start, $end)
 {
   // if any is null return default
   if ($start==NULL || $end==NULL) {
@@ -75,6 +75,10 @@ function javascriptDate($d) {
     $d->format('H').",".
     $d->format('i').",".
     $d->format('s').")";
+}
+
+function escape($s) {
+	return mysql_real_escape_string($s);
 }
 
 ?>

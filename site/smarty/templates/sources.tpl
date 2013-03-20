@@ -1,13 +1,15 @@
+{include file='main_header.tpl'}
 <h1>Список источников</h1>
 	  <span class="button"><a href="sourceadd.php">Добавить новый источник</a></span>
 	  <ul class="source">
 		{section name=i loop=$arr}
 	    <li class="source">
 	      <span class="quotecount">{$arr[i]['c']}</span>
-	      <span class="title"><a href="source.php?id={$arr[i]['id']}">
+	      <span class="title"><a href="source_smarty.php?id={$arr[i]['id']}">
 			{$arr[i]['title']|escape}</a></span>
 	      <span class="author">{$arr[i]['author']|escape}</span>
 		  <span class="dates">{$arr[i]['dates']|escape}</span>
 	    </li>
 		{/section}
 	  </ul>
+{include file='main_footer.tpl'}

@@ -14,8 +14,8 @@ $query = mysql_query('SELECT sources.id, sources.title, sources.author, quotatio
 // queries are over, disconnecting from mysql
 mysql_close($db);
 
-$ACTIVE_PAGE="sources";
-require_once("pages/main_header.php");
+$ACTIVE_PAGE="sources_smarty";
+//require_once("pages/main_header.php");
 
 $output_data = array();
 while($arr = mysql_fetch_array($query)){
@@ -27,11 +27,8 @@ require_once('smarty/HLSmarty.php');
 $smarty = new MySmarty();
 
 $smarty->assign('arr', $output_data);
+$smarty->assign('ACTIVE_PAGE', $ACTIVE_PAGE);
 
 $smarty->display('sources.tpl');
 
 ?>
-<?php
-$ACTIVE_PAGE="sources";
-require_once("pages/main_header.php"); ?>
-<?php require_once("pages/main_footer.php"); ?>
