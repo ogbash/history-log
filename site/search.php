@@ -80,10 +80,8 @@ $errors = array();
 $form = $search;
 
 if (sizeof($_GET)>0){
-	$form = $_GET;
-	foreach($search as $key=>$value)
-			$search[$key] = $_GET[$key];
-	$ret_err = getErrors($search);
+	$form = $_GET + $form; // GET + default values in $form
+	$ret_err = getErrors($form);
 	$search = $ret_err[0];
 	$errors = $ret_err[1];
 	

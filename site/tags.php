@@ -24,6 +24,7 @@ require_once("pages/main_header.php"); ?>
 	    <li class="tag">
 	      <span class="tagcount"><?=$arr['c']?></span>
 	      <span class="tags">
+		  <a href="search.php?f_tags=<?=$arr['name']?>">
 			<?=htmlspecialchars($arr['name'])?></a></span>
 	    </li>
 		<?php } ?>
